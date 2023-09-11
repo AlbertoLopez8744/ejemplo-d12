@@ -7,6 +7,15 @@
 </head>
 <body>
     <h1>Formulario de Contacto</h1>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="/contacto" method="POST">
         <h3>{{ $tipo }}</h3>
         @csrf
@@ -20,10 +29,16 @@
             value="@gmail.com"
         @endif
         ><br>
+        @error('correo')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <label for="comentario">Comentario:</label><br>
         <textarea name="comentario" id="comentario" cols="30" rows="10">
 
         </textarea><br>
+        @error('comentario')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         <label for="tipo">Tipo:</label><br>
         <select name="tipo" >
             <option value="Alumno">Alumno</option>
